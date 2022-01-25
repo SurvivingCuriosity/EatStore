@@ -1,0 +1,33 @@
+  #Prohibida navegacion entre directorios
+Options -Indexes
+
+  #Paginas de error
+ErrorDocument 404 /EatStore/app/views/errors/404.php
+ErrorDocument 403 /EatStore/app/views/errors/403.php
+ErrorDocument 500 /EatStore/app/views/errors/500.php
+
+  #Autenticacion
+#<Files index.php>
+#  AuthName "Autorización requerida"
+#  AuthUserFile C:\xampp\htdocs\EatStore\.htpasswd
+#  AuthType Basic
+#  require user fxy
+#</Files>
+
+DirectoryIndex index.php
+
+  #Cache
+#<IfModule mod_expires.c>
+	#Activa el modulo
+#	ExpiresActive on
+	#Tiempo de expiración predeterminado
+#	ExpiresDefault "access plus 2 days"
+	#Guarda en cache las imagenes png 1 mes
+#	ExpiresByType image/png "access plus 1 month"
+#</IfModule>
+
+#RewriteEngine on
+#RewriteCond%{HTTP_REFERER} !^$
+#RewriteCond%{HTTP_REFERER} !^http://(www\.)?tudominio\.com/.$[NC]
+#RewriteRule .*\.(jpg|gif|png|bmp|png|mp4)$ [L]
+
