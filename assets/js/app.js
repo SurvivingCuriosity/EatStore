@@ -61,7 +61,7 @@ window.setTimeout(borraAlertasTemporales,3000);
 function borraAlertasTemporales(){
 	let mensajes = document.querySelectorAll(".warn, .error, .success");
 	mensajes.forEach(m => {
-		m.style.visibility="hidden";
+		m.style.opacity=0;
 	});
 }
 //FinEliminar mensajes tras 3 segundos
@@ -114,7 +114,7 @@ const updatePerfil = () =>{
 
 	$.ajax({
 		data:  data, //datos que se envian a traves de ajax
-		url:   'app/controllers/Updateuser_ajax.php', //archivo que recibe la peticion
+		url:   'app/controllers/ajax/Updateuser_ajax.php', //archivo que recibe la peticion
 		type:  'post', //método de envio
 		beforeSend: function () {
 				$("#resultadoajax").text("Procesando, espere por favor...");
@@ -130,7 +130,13 @@ const updatePerfil = () =>{
 		i.value="";
 	});
 }
-
+const botonCerrarSesion = document.getElementById("botonCerrarSesion");
+if(botonCerrarSesion)
+	botonCerrarSesion.addEventListener("click",vaciaSessionStorage);
+function vaciaSessionStorage(){
+	alert("El carrito se vaciará");
+	sessionStorage.removeItem('compra');
+}
 //Fin editar formulario y AJAX
 $(function(){
 	//vacio los inputs del formulario ajax
@@ -144,8 +150,8 @@ $(function(){
 	$("#carrito_vaciar").on("click",vaciarCarrito);
 
 	//recupero el carrito del session storage (compruebo que no está vacio ni es null)
-	if(localStorage.getItem('compra')!="" && localStorage.getItem('compra')!=null ){
-		let carroEnSesion = JSON.parse(localStorage.getItem('compra'));
+	if(sessionStorage.getItem('compra')){
+		let carroEnSesion = JSON.parse(sessionStorage.getItem('compra'));
 		carroEnSesion.forEach(c => {
 			let cadena = creaTarjetaProducto(c);
 			$("#productosEnCarrito").append(cadena);
@@ -154,7 +160,7 @@ $(function(){
 	}
 	//si estoy en la pagina de resume compra
 	if($('#resumenCompra').length) {
-		let carroEnSesion = JSON.parse(localStorage.getItem('compra'));
+		let carroEnSesion = JSON.parse(sessionStorage.getItem('compra'));
 		carroEnSesion.forEach(c => {
 			let cadena = creaTarjetaProductoParaCompra(c);
 			$(".grid4").append(cadena);
@@ -166,12 +172,12 @@ $(function(){
 
 function vaciarCarrito(){
 	$("#productosEnCarrito").empty();
-	localStorage.removeItem('compra');
+	sessionStorage.removeItem('compra');
 	actualizarDatosCarrito();
 }
 
 function eliminarProducto(e){
-	productoAEliminar=getProducto(e.target.previousElementSibling.previousElementSibling.previousElementSibling.textContent);
+	productoAEliminar=getProducto(e.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent);
 	if(productoAEliminar){
 		actualizaCantidad(productoAEliminar,'resta');
 	} 
@@ -196,7 +202,8 @@ function actualizarDatosCarrito(){
 	$("#carrito_precioTotal").text(precioTotal);
 	$("#itemsCarrito").text(productosTotales);
 	
-	localStorage.setItem('compra',JSON.stringify(productosCarrito));
+	sessionStorage.setItem('compra',JSON.stringify(productosCarrito));
+	
 	let botonesEliminar = document.querySelectorAll(".botonEliminar");
 	botonesEliminar.forEach(e => {
 		e.addEventListener("click",eliminarProducto)
@@ -210,7 +217,8 @@ function getProductosEnCarrito(){
 		let producto={
 			'nombre':this.children[0].textContent,
 			'precio':this.children[1].textContent.slice(0,-1), //slice quita el '€'
-			'cantidad':this.children[2].textContent
+			'cantidad':this.children[2].textContent,
+			'id':this.children[3].textContent,
 		}
 		productos.push(producto)
 	});
@@ -303,6 +311,7 @@ function creaTarjetaProducto(producto){
 	<p class="nombre_producto_carrito">${producto.nombre}</p>
 	<p class="precio_producto_carrito">${producto.precio}€</p>
 	<p class="cantidad_producto_carrito">${producto.cantidad}</p>
+	<p style="display:none;">${producto.id}</p>
 	<button class="boton botonEliminar">Eliminar</button>
 	</div>
 	`;
@@ -316,6 +325,7 @@ function creaTarjetaProductoParaCompra(producto){
 	<p class="nombre_producto_carrito">${producto.nombre}</p>
 	<p class="precio_producto_carrito">${producto.precio}€</p>
 	<p class="cantidad_producto_carrito">${producto.cantidad}</p>
+	<p style="display:none;" class="cantidad_producto_carrito">${producto.id}</p>
 	<p class="cantidad_producto_carrito">${precioTotalArticulo}€</p>
 	`;
 	
@@ -324,4 +334,70 @@ function creaTarjetaProductoParaCompra(producto){
 
 function obtenerJSONCompra(){
 	return JSON.stringify(getProductosEnCarrito());
+}
+
+
+//CODIGO PROMOCIONAL AJAX Y FIN DE COMPRA
+const inputCodigoDescuento = document.querySelector("#descuentos");
+if(inputCodigoDescuento)
+inputCodigoDescuento.addEventListener('input',checkCodigo);
+
+let descuento=0;
+function checkCodigo(){
+	let codigo = inputCodigoDescuento.value;
+
+	const data = {
+		'codigo' : codigo,
+	}
+
+	$.ajax({
+		data:  data, //datos que se envian a traves de ajax
+		url:   'app/controllers/ajax/checkDescuento_ajax.php', //archivo que recibe la peticion
+		type:  'post', //método de envio
+		beforeSend: function () {
+				$("#ajaxDescuento").text("El código introducido no tiene descuento");
+		},
+		success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+			//window.location.href = "index.php?ctl=perfil";
+			descuento=response;
+			if(response){
+				$("#ajaxDescuento").text('El código introducido tiene descuento del '+response+'%');
+				$("#botonAplicarDescuento").css('display','block');
+			}else{
+				descuento=0;
+				$("#ajaxDescuento").text('El código introducido no tiene descuento');
+				$("#botonAplicarDescuento").css('display','none');
+			}
+			
+		}
+	});
+}
+$("#botonAplicarDescuento").click(hazDescuento);
+function hazDescuento(){
+	if(descuento!=0){
+		let precioActual = getPrecioTotal();
+		let precioFinal = precioActual - ((precioActual*descuento)/100);
+		$("#resumenCompra_displayPrecioTotal").text(precioFinal+"€");
+		$("#resumenCompra_displayPrecioTotal2").text(precioFinal+"€");
+	}
+}
+
+$("#botonFinal").click(procesarCompra);
+function procesarCompra(){
+	let precioFinal = getPrecioTotal() - ((getPrecioTotal()*descuento)/100);
+	let radiosPago = document.querySelectorAll(".inputPago");
+	let metodoPago="";
+	radiosPago.forEach(radio => {
+		if(radio.checked){
+			metodoPago=radio.id;
+		}
+	});
+	const datosCompra = {
+		'carrito' : JSON.stringify(getProductosEnCarrito()),
+		'total_sinDescuento' : getPrecioTotal(),
+		'total' : precioFinal,
+		'descuento' : descuento,
+		'metodoPago' : metodoPago
+	}
+	$("#hiddenResumenCompra").val(JSON.stringify(datosCompra));
 }

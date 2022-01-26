@@ -19,7 +19,7 @@
         <div class="mainContainer">
             <h1>403</h1>
             <p>No tienes permiso para acceder a este recurso.</p>
-            <a class="color" href="http://localhost/EatStore/index.php?ctl=platos">Volver</a>
+            <a class="color" href="http://localhost/EatStore/index.php?ctl=verPlatos">Volver</a>
         </div>
     </main>
 </body>

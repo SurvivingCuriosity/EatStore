@@ -8,9 +8,6 @@ class EatstoreDB {
    const PASSWORD   = '';
    const DATABASE   = 'eatstore';
    
-   /**
-    * Constructor de clase
-    */
    public function __construct() {           
       try {
          // Conexión a base de datos
@@ -22,11 +19,6 @@ class EatstoreDB {
       }     
    } 
    
-   /**
-    * obtiene un solo registro dado su ID
-    * @param int $id identificador unico de registro
-    * @return Array array con los registros obtenidos de la base de datos
-    */
    public function getPlato($id=0) {      
       $stmt = $this->mysqli->prepare("SELECT * FROM plato WHERE idplato=? ; ");
       $stmt->bind_param('s', $id);
@@ -37,10 +29,6 @@ class EatstoreDB {
       return $plato;              
    }
    
-   /**
-    * obtiene todos los registros de la tabla "people"
-    * @return Array array con los registros obtenidos de la base de datos
-    */
    public function getPlatos() {        
       $result = $this->mysqli->query('SELECT * FROM plato');          
       $platos = $result->fetch_all(MYSQLI_ASSOC);          
@@ -48,11 +36,6 @@ class EatstoreDB {
       return $platos; 
    }
    
-   /**
-    * añade un nuevo registro en la tabla persona
-    * @param String $name nombre completo de persona
-    * @return bool TRUE|FALSE 
-    */
    public function insert($data) {
       $nombre = $data["nombre"];
       $foto = $data["foto"];
@@ -74,11 +57,6 @@ class EatstoreDB {
       return $r;        
    }
    
-   /**
-    * elimina un registro dado el ID
-    * @param int $id Identificador unico de registro
-    * @return Bool TRUE|FALSE
-    */
    public function delete($id=0) {
       $stmt = $this->mysqli->prepare("DELETE FROM plato WHERE idplato = ? ; ");
       $stmt->bind_param('s', $id);
@@ -87,10 +65,6 @@ class EatstoreDB {
       return $r;
    }
 
-   /**
-    * Actualiza registro dado su ID
-    * @param int $id Description
-    */
    public function update($id, $data) {
       $nombre = $data["nombre"];
       $foto = $data["foto"];
@@ -108,11 +82,6 @@ class EatstoreDB {
       return false;
    }
 
-   /**
-    * verifica si un ID existe
-    * @param int $id Identificador unico de registro
-    * @return Bool TRUE|FALSE
-    */
    public function checkID($id) {
       $stmt = $this->mysqli->prepare("SELECT * FROM plato WHERE idplato=?");
       $stmt->bind_param("s", $id);
@@ -124,13 +93,5 @@ class EatstoreDB {
       }  
       return false;
    }
-
-   // public function getName() {        
-   //    $result = $this->mysqli->query('SELECT name FROM cliente');          
-   //    $names = $result->fetch_all(MYSQLI_ASSOC);          
-   //    $result->close();
-   //    return $names; 
-   // }
-    
 }
 ?>

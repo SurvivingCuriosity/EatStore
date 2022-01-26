@@ -19,6 +19,6 @@ class Config{
 //TITULO
     static public $titulo ='Ñam ñam';
     static public $defaultRoute ='index';
-    
+    static public $carpeta ='eatstore';
 }
 ?>

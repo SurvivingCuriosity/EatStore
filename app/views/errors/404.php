@@ -19,7 +19,7 @@
         <div class="mainContainer">
             <h1>404</h1>
             <p>La página solicitada no existe en el servidor.</p>
-            <a class="color" href="http://localhost/EatStore/index.php?ctl=platos">Volver</a>
+            <a class="color" href="http://localhost/EatStore/index.php?ctl=verPlatos">Volver</a>
         </div>
     </main>
 </body>

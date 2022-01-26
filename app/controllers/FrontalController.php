@@ -29,31 +29,39 @@
             'controller' => 'MainController',
             'action' => 'index'
         ),
+        'verFormLogin' => array(
+            'controller' => 'VistasController',
+            'action' => 'verFormLogin'
+        ),
         'checkLogin' => array(
             'controller' => 'UsersController',
             'action' => 'checkLogin'
         ),
-        'logout' => array(
-            'controller' => 'UsersController',
-            'action' => 'logout'
+        'verRegistro' => array(
+            'controller' => 'VistasController',
+            'action' => 'verFormularioRegistro'
         ),
         'registro' => array(
             'controller' => 'UsersController',
             'action' => 'registro'
         ),
-        'platos' => array(
+        'logout' => array(
+            'controller' => 'UsersController',
+            'action' => 'logout'
+        ),
+        'verPlatos' => array(
             'controller' => 'ProductsController',
             'action' => 'mostrarPlatos'
         ),
-        'categorias' => array(
+        'verCategorias' => array(
             'controller' => 'ProductsController',
             'action' => 'mostrarCategorias'
         ),
-        'perfil' => array(
+        'verPerfil' => array(
             'controller' => 'UsersController',
             'action' => 'verPerfil'
         ),
-        'resumenCompra' => array(
+        'verResumenCompra' => array(
             'controller' => 'CompraController',
             'action' => 'resumenCompra'
         ),
@@ -61,9 +69,13 @@
             'controller' => 'UsersController',
             'action' => 'borrarCuenta'
         ),
-        'docapi' => array(
-            'controller' => 'MainController',
+        'verDocapi' => array(
+            'controller' => 'VistasController',
             'action' => 'verDocApi'
+        ),
+        'procesarCarrito' => array(
+            'controller' => 'CompraController',
+            'action' => 'procesarCarrito'
         )
     );
 

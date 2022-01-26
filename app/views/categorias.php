@@ -10,6 +10,7 @@
                             <div class="producto">
                                 <div class="producto_div_info_foto">
                                     <div>
+                                        <span style="display:none;"><?=$plato['id']?></span>
                                         <h4 class="producto_nombre"><?=$plato['nombre']?></h4>
                                         <p class="producto_descripcion"><?=$plato['descripcion']?></p>
                                     </div>

@@ -7,7 +7,9 @@
 const checkBoxesFiltros = document.querySelectorAll(".checkFiltros");
 const contenedorProductos = document.querySelector(".productsContainerTodos");
 const botonResetFiltros = document.querySelector("#resetFiltros");
-botonResetFiltros.addEventListener("click",resetFiltros);
+if(isInPage(botonResetFiltros)){
+    botonResetFiltros.addEventListener("click",resetFiltros);
+}
 function resetFiltros(e){
     e.preventDefault();
     checkBoxesFiltros.forEach(e => {
@@ -26,7 +28,9 @@ checkBoxesFiltros.forEach(e => {
     e.checked=true;
 });
 checkBoxesFiltros.forEach(e => {
-    e.addEventListener("change",filtraProductos);
+    if(isInPage(e)){
+        e.addEventListener("change",filtraProductos);
+    }
 });
 
 
@@ -93,4 +97,6 @@ if($("#rangeSlider").length){
     });
 }
 
-
+function isInPage(node) {
+    return (node === document.body) ? false : document.body.contains(node);
+}

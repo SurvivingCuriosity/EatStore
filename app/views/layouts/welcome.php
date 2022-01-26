@@ -15,16 +15,18 @@
 </head>
 <body>
     <div style="height: calc(100vh - 50px);">
-    <img id="imgFondoWelcome" src="<?=Config::$rutaIMG?>fondo.png" alt="">
+    <img id="imgFondoWelcome" src="<?=Config::$rutaIMG?>fondo.png" alt="Imagen de bienvenida">
     <div id="welcomeContainer">
         <div id="welcomeSubContainer">
-            <h1 id="welcome_titulo"><?=Config::$titulo?></h1>
-            <p>No tenemos miedo a tus antojos...¡Lo tenemos!</p>
-            <p class="color">Bienvenido</p>
             <?= $contenido ?>
         </div>
     </div>
     </div>
     <?php include(Config::$rutaParts."footer.php"); ?>
+    <script
+			  src="https://code.jquery.com/jquery-3.6.0.js"
+			  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+			  crossorigin="anonymous"></script>
+    <script src="<?=Config::$rutaJS?>app.js"></script>
 </body>
 </html>

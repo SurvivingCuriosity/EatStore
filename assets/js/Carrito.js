@@ -1,3 +1,0 @@
-function carrito () {
-    this.pedido = [];
-}

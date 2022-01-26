@@ -9,25 +9,49 @@ class CompraController{
 //CAMPOS TABLA cliente: idcliente, dni, nombre, direccion, correoe contras 
     use FiltrarTraitMatriz;
 
-    public static function resumenCompra($cat=""){
-        $platos = ProductsModel::getPlatos();
+    public static function resumenCompra(){
         require_once('app/views/resumenCompra.php');
     }
 
-    //muestra los platos de todas las categorias o los de una en funcion de $_GET['cat]
-    public static function mostrarCategorias(){
-        if(isset($_GET['cat'])){
-            $categoria = $_GET['cat'];
-            $platos = ProductsModel::getPlatos();
-        }
-        //devuelve nombre y descripcion
-        $categorias = ProductsModel::getCategorias();
+    public static function procesarCarrito(){
+        if(isset($_POST['compra']) && ($_POST['compra']!="")){
 
-        //añado el campo platos (de cada categoria)
-        for ($i=0; $i < sizeof($categorias); $i++) { 
-            $categorias[$i]['platos']=ProductsModel::getPlatos($categorias[$i]['nombre']);
+            $resumenCompra = json_decode($_POST['compra']);
+            
+            $carrito = json_decode($resumenCompra->carrito);
+            $total_sinDescuento = $resumenCompra->total_sinDescuento;
+            $total = $resumenCompra->total;
+            $metodoPago = $resumenCompra->metodoPago;
+            $descuento = $resumenCompra->descuento;
+
+            $datosCompra = [
+                'descuento'=>$descuento,
+                'metodoPago'=>$metodoPago,
+                'total_sinDescuento'=>$total_sinDescuento,
+                'total'=>$total
+            ];
+            if($idCompra=CompraModel::nuevaCompra($datosCompra)){
+                foreach ($carrito as $producto) {
+                    if(!CompraModel::crearDetallesCompra($producto, $idCompra)){
+                        $param['class']='error';
+                        $param['msg']='Error al procesar los detalles de la compra';
+                        require_once 'app/views/resumenCompra.php';
+                    }
+                }
+                echo "a";
+                //todo fue bien
+            }else{
+                $param['class']='error';
+                $param['msg']='Error al procesar la compra';
+                require_once 'app/views/resumenCompra.php';
+            }
+            
+
+        }else{
+            $param['class']='error';
+            $param['msg']='Error al procesar la compra';
+            require_once 'app/views/resumenCompra.php';
         }
-        
-        require_once('app/views/categorias.php');
     }
+
 }

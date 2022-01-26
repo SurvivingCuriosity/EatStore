@@ -8,9 +8,10 @@ ob_start();
     <?php 
         foreach ($platos as $plato) { ?>
             <div class="producto <?=$plato['categoria']?>">
-            <a class="producto_categoria <?=$plato['categoria']?>" href="index.php?ctl=categorias&cat=<?=$plato['categoria']?>#<?=$plato['categoria']?>"><?=$plato['categoria']?></a>
+            <a class="producto_categoria <?=$plato['categoria']?>" href="index.php?ctl=verCategorias#<?=$plato['categoria']?>"><?=$plato['categoria']?></a>
                 <div class="producto_div_info_foto">
                     <div>
+                        <span style="display:none;"><?=$plato['id']?></span>
                         <h4 class="producto_nombre"><?=$plato['nombre']?></h4>
                         <p class="producto_descripcion"><?=$plato['descripcion']?></p>
                     </div>

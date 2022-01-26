@@ -5,6 +5,7 @@
     if(!$_POST['nombre']==""){
         updateCampo('nombre',$_POST['nombre']);
     }
+
     if(!$_POST['dni']==""){
         if (dniValido($_POST['dni'])){
             if(campoNoRepetido('dni','cliente', $_POST['dni'])){
@@ -16,6 +17,7 @@
             echo "Error: DNI no válido";
         }
     }
+
     if(!$_POST['correoe']==""){
         if(campoNoRepetido('correoe','cliente', $_POST['correoe'])){
             updateCampo('correoe',$_POST['correoe']);
@@ -23,9 +25,11 @@
             echo "Error: E-mail existente";
         }
     }
+
     if(!$_POST['direccion']==""){
         updateCampo('direccion',$_POST['direccion']);
     }
+
     if(!$_POST['contras']==""){
         if($_POST['contras']==$_POST['ccontras']){
             $error_clave="";
@@ -56,8 +60,6 @@
                 $stmt=  $conexion->prepare($sql);
                 $resultado=$stmt->execute();
                 if($resultado){
-                    
-                    session_start();
                     $_SESSION[$campo]=$nuevoValor;
 
                     $respuesta= ucwords($campo)." actualizado.";
@@ -85,6 +87,7 @@
         } 
     }
 
+    /*FUNCIONES DE CONTROL*/
     function dniValido($dni){
         $letra = substr($dni, -1);
         $numeros = substr($dni, 0, -1);

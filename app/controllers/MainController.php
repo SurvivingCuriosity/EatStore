@@ -12,7 +12,7 @@ class MainController{
         if(!isset($_SESSION["nombre"])){
             require 'app/views/login_form.php';
         }else{
-            require 'app/views/platos.php';
+            header("Location: index.php?ctl=platos");
         }
     }
     public static function verDocApi(){

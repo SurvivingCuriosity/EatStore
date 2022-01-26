@@ -19,7 +19,7 @@
         <div class="mainContainer">
             <h1>500</h1>
             <p>Error en el servidor...</p>
-            <a class="color" href="http://localhost/EatStore/index.php?ctl=platos">Volver</a>
+            <a class="color" href="http://localhost/EatStore/index.php?ctl=verPlatos">Volver</a>
         </div>
     </main>
 </body>

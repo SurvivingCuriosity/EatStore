@@ -18,24 +18,23 @@ header("Access-Control-Allow-Methods: GET, POST,PUT,DELETE,OPTIONS");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
 class EatstoreAPI {    
-    
     public function API() {
         header('Content-Type: application/JSON');                
         $method = $_SERVER['REQUEST_METHOD'];
         switch ($method) {
-            case 'GET': // consulta
+            case 'GET':
                 $this->getPlatos();
                 break;     
-            case 'POST': // inserta
+            case 'POST':
                 $this->addPlato();
                 break;                
-            case 'PUT': // actualiza
+            case 'PUT':
                 $this->updatePlato();       
                 break;      
-            case 'DELETE': // elimina
+            case 'DELETE':
                 $this->deletePlato();
                 break;
-            default: // metodo NO soportado
+            default:
                 echo 'METODO NO SOPORTADO';
                 break;
         }
@@ -55,21 +54,15 @@ class EatstoreAPI {
             } 
     }
 
-    /**
-     * función que segun el valor de "action" e "id":
-     *  - mostrara una array con todos los registros de personas
-     *  - mostrara un solo registro 
-     *  - mostrara un array vacio
-     */
     function getPlatos() {
         if($_GET['action'] == 'platos')  {
             $db = new EatstoreDB();
             if(isset($_GET['id'])) {
                 // muestra 1 solo registro si es que existiera ID                 
-                $response = $db->getPlato($_GET['id']);   //Consultas con mysqli  
+                $response = $db->getPlato($_GET['id']);
                 echo json_encode($response,JSON_PRETTY_PRINT);
             } else { //muestra todos los registros                   
-                $response = $db->getPlatos();   //consultas con mysqli
+                $response = $db->getPlatos();
                 echo json_encode($response,JSON_PRETTY_PRINT);
             }
         } else {
@@ -77,13 +70,11 @@ class EatstoreAPI {
         }       
     }  
 
-    /**
-     * metodo para guardar un nuevo registro de persona en la base de datos
-    */
     function addPlato() {
         if($_GET['action']=='platos'){
             if(isset($_GET['id'])){
                 //anadir imagen
+                //FIXME:
                 $obj = json_decode( file_get_contents('php://input') ); 
                 print_r($_POST);
                 
@@ -102,9 +93,8 @@ class EatstoreAPI {
                     $this->response(422,"error","The property is not defined");
                 }
             }else{
-                //anadir plato
                 //Decodifica un string de JSON
-                $obj = json_decode( file_get_contents('php://input') );   
+                $obj = json_decode(file_get_contents('php://input'));   
                 $objArr = (array)$obj;
                 if (empty($objArr)) {
                     $this->response(422,"error","Nothing to add. Check json");                           
@@ -119,11 +109,8 @@ class EatstoreAPI {
         } else {               
                 $this->response(400);
             }  
-        }
-
-    /**
-     * Actualiza un recurso
-     */
+    }
+    
     function updatePlato() {
         if( isset($_GET['action']) && isset($_GET['id']) ) {
             if($_GET['action']=='platos') {
@@ -144,9 +131,6 @@ class EatstoreAPI {
         $this->response(400);
     }
 
-    /**
-     * elimina plato
-     */
     function deletePlato() {
         if( isset($_GET['action']) && isset($_GET['id']) )  {
             if($_GET['action']=='platos') {                   

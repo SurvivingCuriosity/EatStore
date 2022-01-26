@@ -40,8 +40,8 @@
                         <li>
                             <img id="imgPerfil" class="dropbtn" onclick="muestraOpcionesPerfil()" src="<?=Config::$rutaIMG?>user.png" alt="Icono usuario" style="width:40px;height:40px;">
                                 <div class="dropdown-content" id="myDropdown">
-                                    <a href="index.php?ctl=perfil">Mi perfil</a>
-                                    <a href="index.php?ctl=logout" class="texto-rojo" >Cerrar sesión</a>
+                                    <a href="index.php?ctl=verPerfil">Mi perfil</a>
+                                    <a id="botonCerrarSesion" href="index.php?ctl=logout" class="texto-rojo" >Cerrar sesión</a>
                                 </div>
                         </li>
                         <li>
@@ -62,7 +62,8 @@
                                         <span class="linea-flexCentro">
                                             <p class="cabeceraCarrito">Total: <p id="carrito_precioTotal">0</p>€</p>
                                             <a id="carrito_vaciar" class="botonCarro">Vaciar carrito</a>
-                                            <a class="botonCarro" href="index.php?ctl=resumenCompra">Procesar compra</a>
+                                            <a class="botonCarro" href="index.php?ctl=verResumenCompra">Procesar compra</a>
+                                            <p id="sesionOculto" style="display:none;"><?=$_SESSION['idCliente']?></p>
                                         </span>
                                     </div>
                                 </div>

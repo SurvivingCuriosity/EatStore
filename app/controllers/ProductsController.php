@@ -9,6 +9,7 @@ class ProductsController{
 //CAMPOS TABLA cliente: idcliente, dni, nombre, direccion, correoe contras 
     use FiltrarTraitMatriz;
 
+//USADO EN LA VISTA PLATOS
     public static function mostrarPlatos($cat=""){
         $platos = ProductsModel::getPlatos();
         $nombresCategorias = ProductsModel::getNombresCategorias();
@@ -16,7 +17,8 @@ class ProductsController{
         require_once('app/views/platos.php');
     }
 
-    //muestra los platos de todas las categorias o los de una en funcion de $_GET['cat]
+//USADO EN LA VISTA CATEGORIAS
+//muestra los platos de todas las categorias o los de una en funcion de $_GET['cat]
     public static function mostrarCategorias(){
         if(isset($_GET['cat'])){
             $categoria = $_GET['cat'];
