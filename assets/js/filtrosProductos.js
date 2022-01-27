@@ -7,6 +7,9 @@
 const checkBoxesFiltros = document.querySelectorAll(".checkFiltros");
 const contenedorProductos = document.querySelector(".productsContainerTodos");
 const botonResetFiltros = document.querySelector("#resetFiltros");
+let minimo =$("#precioMin").text()*1;//se corresponde con el menor precio de los productos de la bbdd
+let maximo= $("#precioMax").text()*1;
+
 if(isInPage(botonResetFiltros)){
     botonResetFiltros.addEventListener("click",resetFiltros);
 }
@@ -21,14 +24,10 @@ function resetFiltros(e){
         maximo = Number($('#rangeSlider').slider('values',1));
     filtraProductos();
 }
-let minimo =$("#precioMin").text()*1;//se corresponde con el menor precio de los productos de la bbdd
-let maximo= $("#precioMax").text()*1;
 
 checkBoxesFiltros.forEach(e => {
-    e.checked=true;
-});
-checkBoxesFiltros.forEach(e => {
-    if(isInPage(e)){
+    if(isInPage){
+        e.checked=true;
         e.addEventListener("change",filtraProductos);
     }
 });
@@ -97,6 +96,3 @@ if($("#rangeSlider").length){
     });
 }
 
-function isInPage(node) {
-    return (node === document.body) ? false : document.body.contains(node);
-}

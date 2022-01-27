@@ -19,6 +19,8 @@
             require_once $pathModels;
         }
     });
+    require_once('vendor/autoload.php');
+    require_once('app/libraries/Omnipaygateway.php');
 
 
     //Iniciamos sesión sin datos
@@ -73,9 +75,13 @@
             'controller' => 'VistasController',
             'action' => 'verDocApi'
         ),
-        'procesarCarrito' => array(
+        'confirmarCompra' => array(
             'controller' => 'CompraController',
             'action' => 'procesarCarrito'
+        ),
+        'verFormPago' => array(
+            'controller' => 'VistasController',
+            'action' => 'verFormPago'
         )
     );
 

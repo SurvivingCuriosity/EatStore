@@ -2,7 +2,7 @@
 
 class CompraController{
     public static $conexion;
-    
+
     public function __construct() {
         self::$conexion = Conectar::conexion();
     }
@@ -13,6 +13,7 @@ class CompraController{
         require_once('app/views/resumenCompra.php');
     }
 
+    //una vez que se confirma el pago
     public static function procesarCarrito(){
         if(isset($_POST['compra']) && ($_POST['compra']!="")){
 
@@ -38,8 +39,9 @@ class CompraController{
                         require_once 'app/views/resumenCompra.php';
                     }
                 }
-                echo "a";
-                //todo fue bien
+                $param['class']='success';
+                $param['msg']='Su compra ha sido realizada.';
+                require_once 'app/views/successCompra.php';
             }else{
                 $param['class']='error';
                 $param['msg']='Error al procesar la compra';
@@ -53,5 +55,6 @@ class CompraController{
             require_once 'app/views/resumenCompra.php';
         }
     }
+
 
 }

@@ -508,6 +508,10 @@ form{
 #listaDocApi li{
     font-size: 1.5em;
 }
+#formPago{
+    align-items: center;
+    gap: 0;
+}
 /*=====================================================================================MEDIA QUERIES*/
 
 /*TABLET VERTIVAL4*/
@@ -560,7 +564,7 @@ form{
         justify-content: center;
     }
     .productsContainerTodos{
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         width: 70vw;
     }
     #myDropdown2{
@@ -613,7 +617,7 @@ form{
     }
     .productsContainerTodos{
         grid-template-columns: 1fr 1fr 1fr;
-        width: 60vw;
+        width: 80vw;
     }
     .categoriasContainer{
         gap:2em;

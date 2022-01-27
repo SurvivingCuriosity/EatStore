@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2022 a las 22:27:25
+-- Tiempo de generación: 27-01-2022 a las 18:58:48
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.3.30
 
@@ -64,7 +64,7 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` (`idcliente`, `dni`, `nombre`, `direccion`, `correoe`, `contras`) VALUES
 (1, '11111111H', 'Lourdes Izquierdo', 'Avd. Comuneros, 123, 5G. 37007 Salamanca', 'prueba@gmail.com', '$2y$10$RUrVQ8Zq3t/z/RQRVyFWD.JlWSN7/nQV.3AKiubPBj0CJqcRIsJnO'),
-(22, '11946693X', 'Fernando', 'Calle ', 'fer2@fer.com', '$2y$10$9uQFRX6whufo2BDG2VlTkuHokbhkPmDNToAR7EKwkww05DG90f5FC');
+(22, '11946693X', 'Fer', 'Calle Alegría', 'fer2@fer.com', '$2y$10$9uQFRX6whufo2BDG2VlTkuHokbhkPmDNToAR7EKwkww05DG90f5FC');
 
 -- --------------------------------------------------------
 
@@ -75,11 +75,41 @@ INSERT INTO `cliente` (`idcliente`, `dni`, `nombre`, `direccion`, `correoe`, `co
 CREATE TABLE `compra` (
   `idcompra` int(11) UNSIGNED NOT NULL,
   `idcliente` int(11) UNSIGNED NOT NULL,
-  `fcompra` date NOT NULL,
+  `fcompra` timestamp NULL DEFAULT current_timestamp(),
   `descuento` double DEFAULT 0,
   `formapago` varchar(50) COLLATE utf8mb4_spanish_ci DEFAULT 'Efectivo',
+  `total_sinDescuento` double NOT NULL,
   `total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `compra`
+--
+
+INSERT INTO `compra` (`idcompra`, `idcliente`, `fcompra`, `descuento`, `formapago`, `total_sinDescuento`, `total`) VALUES
+(12, 22, '2022-01-27 17:38:32', 20, 'efectivo', 41, 32.8),
+(13, 22, '2022-01-27 17:38:41', 20, 'efectivo', 41, 32.8),
+(14, 22, '2022-01-27 17:39:50', 20, 'efectivo', 41, 32.8);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `descuento`
+--
+
+CREATE TABLE `descuento` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(50) NOT NULL,
+  `porcentaje` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `descuento`
+--
+
+INSERT INTO `descuento` (`id`, `codigo`, `porcentaje`) VALUES
+(1, 'navidad', 20),
+(2, 'fernando', 50);
 
 -- --------------------------------------------------------
 
@@ -94,6 +124,18 @@ CREATE TABLE `detalle_compra` (
   `cantidad` int(11) UNSIGNED DEFAULT 1,
   `precio` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_compra`
+--
+
+INSERT INTO `detalle_compra` (`iddetalle`, `idplato`, `idcompra`, `cantidad`, `precio`) VALUES
+(27, 1, 12, 2, 12),
+(28, 2, 12, 1, 17),
+(29, 1, 13, 2, 12),
+(30, 2, 13, 1, 17),
+(31, 1, 14, 2, 12),
+(32, 2, 14, 1, 17);
 
 -- --------------------------------------------------------
 
@@ -126,7 +168,8 @@ INSERT INTO `plato` (`idplato`, `nombre`, `foto`, `descripcion`, `idcategoria`, 
 (9, 'Carrilleras', 'carrilleras.jpg', 'Carrilleras super super ricas', 2, 15),
 (10, 'Trufas', 'trufas.jpg', 'Trufas heladas con ketchup', 4, 17),
 (11, 'Helado', 'helado.jpg', 'Helado de chocolate o vainilla', 4, 5),
-(12, 'Salmón', 'salmon.jpg', 'Salmón recién salido del mar', 3, 30);
+(12, 'Salmón', 'salmon.jpg', 'Salmón recién salido del mar', 3, 30),
+(13, 'Gambas', 'gambas.jpg', 'Gambas gambitas gambotas', 3, 67);
 
 --
 -- Índices para tablas volcadas
@@ -153,6 +196,12 @@ ALTER TABLE `cliente`
 ALTER TABLE `compra`
   ADD PRIMARY KEY (`idcompra`),
   ADD KEY `compra_ibfk_1` (`idcliente`);
+
+--
+-- Indices de la tabla `descuento`
+--
+ALTER TABLE `descuento`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `detalle_compra`
@@ -190,19 +239,25 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `idcompra` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idcompra` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `descuento`
+--
+ALTER TABLE `descuento`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
-  MODIFY `iddetalle` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `iddetalle` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `plato`
 --
 ALTER TABLE `plato`
-  MODIFY `idplato` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idplato` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
