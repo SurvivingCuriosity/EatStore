@@ -5,6 +5,7 @@
         $pathControllers = 'app/controllers/' . $clase . '.php';
         $pathBD = 'app/db/' . $clase . '.php';
         $pathModels = 'app/models/' . $clase . '.php';
+        $pathHelpers = 'app/helpers/' . $clase . '.php';
         
         if (file_exists($pathConfig)) {
             require_once $pathConfig;
@@ -18,8 +19,12 @@
         if (file_exists($pathModels)) {
             require_once $pathModels;
         }
+        if (file_exists($pathHelpers)) {
+            require_once $pathHelpers;
+        }
     });
-
+    require_once('vendor/autoload.php');
+    
 
     //Iniciamos sesión sin datos
     !isset ($_SESSION['nombre']) ? session_start(): NULL;
@@ -73,9 +78,13 @@
             'controller' => 'VistasController',
             'action' => 'verDocApi'
         ),
-        'procesarCarrito' => array(
+        'confirmarCompra' => array(
             'controller' => 'CompraController',
             'action' => 'procesarCarrito'
+        ),
+        'descargarFactura' => array(
+            'controller' => 'DescargarFactura',
+            'action' => 'descargarFactura'
         )
     );
 

@@ -84,7 +84,10 @@
 
     <?php include(Config::$rutaParts."footer.php")?>
 
-    <script src="<?=Config::$rutaJS?>app.js"></script>
+    <script src="<?=Config::$rutaJS?>interfaz.js"></script>
+    <script src="<?=Config::$rutaJS?>ajax.js"></script>
+    <script src="<?=Config::$rutaJS?>carrito.js"></script>
+    <script src="<?=Config::$rutaJS?>procesarCompra.js"></script>
     <script src="<?=Config::$rutaJS?>filtrosProductos.js"></script>
 </body>
 </html>

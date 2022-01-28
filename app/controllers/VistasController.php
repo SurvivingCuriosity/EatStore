@@ -14,4 +14,8 @@ class VistasController{
     public static function verDocApi(){
         require 'app/views/docApi.php';
     }
+
+    public static function verFormPago(){
+        require 'app/views/form_pago.php';
+    }
 }

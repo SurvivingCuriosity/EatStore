@@ -87,6 +87,7 @@ hr{
 .error{color:red;opacity:1;transition:opacity 3s;}
 .rojo{color:red;}
 .success{color:green;opacity:1;transition:opacity 3s;}
+.success2{color:green;opacity:1;transition:opacity 3s;}
 
 a.Arroces{color:darkkhaki;}
 a.Pescados{color:cornflowerblue;}
@@ -508,6 +509,14 @@ form{
 #listaDocApi li{
     font-size: 1.5em;
 }
+#formPago{
+    align-items: center;
+    gap: 0;
+}
+iframe{
+    width:80%;
+    min-height: 400px;
+}
 /*=====================================================================================MEDIA QUERIES*/
 
 /*TABLET VERTIVAL4*/
@@ -560,7 +569,7 @@ form{
         justify-content: center;
     }
     .productsContainerTodos{
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         width: 70vw;
     }
     #myDropdown2{
@@ -613,7 +622,7 @@ form{
     }
     .productsContainerTodos{
         grid-template-columns: 1fr 1fr 1fr;
-        width: 60vw;
+        width: 80vw;
     }
     .categoriasContainer{
         gap:2em;

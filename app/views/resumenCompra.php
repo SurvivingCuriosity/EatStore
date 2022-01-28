@@ -4,6 +4,7 @@ ob_start();
 ?>
 <?php isset($param['msg']) ? $msg=$param['msg'] : $msg="" ?>
 <?php isset($param['class']) ? $class=$param['class'] : $class =""?>
+    <script src="https://www.paypal.com/sdk/js?client-id=AQ4KPhOB9BAylqYDuTLSDJ5TjmmupvJl7Y6Lz4u64MGgMmh30LV_VcZlVD1uH72CyhdckJXe5BkbyfY2&currency=USD"></script>
     <p class="<?=$class?>"><?=$msg?></p>
     <h2>Resumen de la compra</h2>
     <p>Si modificas el carro antes de confirmar la compra, actualiza la página primero</p>
@@ -47,12 +48,47 @@ ob_start();
             <div class="linea-flex grande">
                 <h4>Total: <h4 id="resumenCompra_displayPrecioTotal2" class="color"></h4></h4>
             </div>
-        <form action="index.php?ctl=procesarCarrito" method="post">
-                <input id="hiddenResumenCompra" type="hidden" name="compra">
-                <input  class="boton" id="botonFinal" type="submit" value="Confirmar compra">
+
+
+        <div style="width:60%; font-size:0.8em;" id="paypal-button-container"></div>
+
+        <script>
+            paypal.Buttons({
+                // Sets up the transaction when a payment button is clicked
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: carrito.precioTotalDescuento
+                        }
+                    }]
+                    });
+                },
+                // Finalize the transaction after payer approval
+                onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                    let transaction = orderData.purchase_units[0].payments.captures[0];
+                    
+                    procesarCompra();
+                    vaciarCarrito();
+                    
+                    document.querySelector("#botonFinal").click();
+                });
+                },
+                onCancel: function (data) {
+                    document.querySelector("#infoResultadoPaypal").classList.add("error");
+                    document.querySelector("#infoResultadoPaypal").textContent="Has cancelado la compra";
+                }
+            }).render('#paypal-button-container');
+        </script>
+        <p id="infoResultadoPaypal"></p>
+        <!-- Una vez que se ha pagado, se envía este formulario para guardar los datos en bbdd -->
+        <form style="display:none;" id="formPago" action="index.php?ctl=confirmarCompra" method="post">
+            <input id="hiddenResumenCompra" type="hidden" name="compra">
+            <input  class="boton" id="botonFinal" type="submit" value="Pagar">
         </form>
         
-    </div>
+        </div>
 <?php 
 $contenido = ob_get_clean();
 include 'layouts/ly_login.php'; ?>

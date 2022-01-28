@@ -1,0 +1,21 @@
+{
+    "name": "ferna/eat-store",
+    "description": "Proyecto DAW 2022",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.5",
+        "dompdf/dompdf": "^1.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ferna\\EatStore\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Fernando Rodríguez",
+            "email": "ferrodest1999@gmail.com"
+        }
+    ]
+}
