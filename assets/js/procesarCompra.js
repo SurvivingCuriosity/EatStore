@@ -16,7 +16,10 @@ function procesarCompra(){
 			metodoPago=radio.id;
 		}
 	});
+<<<<<<< HEAD
 	if(!descuento) descuento=0;
+=======
+>>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
 	const datosCompra = {
 		'carrito' : JSON.stringify(carrito.productos),
 		'total_sinDescuento' : carrito.precioTotal,
@@ -24,8 +27,11 @@ function procesarCompra(){
 		'descuento' : descuento,
 		'metodoPago' : metodoPago
 	}
+<<<<<<< HEAD
 	console.log(JSON.stringify(datosCompra));
 	
+=======
+>>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
 	$("#hiddenResumenCompra").val(JSON.stringify(datosCompra));
 }
 

@@ -4,7 +4,13 @@
     "type": "project",
     "require": {
         "phpmailer/phpmailer": "^6.5",
+<<<<<<< HEAD
         "dompdf/dompdf": "^1.1"
+=======
+        "league/omnipay": "^3.2",
+        "dompdf/dompdf": "^1.1",
+        "omnipay/paypal": "^3.0"
+>>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
     },
     "license": "MIT",
     "autoload": {
