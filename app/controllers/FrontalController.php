@@ -24,12 +24,7 @@
         }
     });
     require_once('vendor/autoload.php');
-<<<<<<< HEAD
     
-=======
-    require_once('app/libraries/Omnipaygateway.php');
-
->>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
 
     //Iniciamos sesión sin datos
     !isset ($_SESSION['nombre']) ? session_start(): NULL;
@@ -87,15 +82,9 @@
             'controller' => 'CompraController',
             'action' => 'procesarCarrito'
         ),
-<<<<<<< HEAD
         'descargarFactura' => array(
             'controller' => 'DescargarFactura',
             'action' => 'descargarFactura'
-=======
-        'verFormPago' => array(
-            'controller' => 'VistasController',
-            'action' => 'verFormPago'
->>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
         )
     );
 

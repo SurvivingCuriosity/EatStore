@@ -4,7 +4,6 @@
 
     // instantiate and use the dompdf class
     $dompdf = new Dompdf();
-    (isset($_POST['cadenaFactura'])) ? $cadenaFactura=$_POST['cadenaFactura'] : $cadenaFactura="Error";
 
     $dompdf->loadHtml($cadenaFactura);
 

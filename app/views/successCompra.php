@@ -1,6 +1,5 @@
 <?php 
 ob_start();
-<<<<<<< HEAD
     isset($param['carrito']) ? $carrito=$param['carrito'] : $carrito="";
     isset($param['datosCompra']) ? $datosCompra=$param['datosCompra'] : $datosCompra ="";
     isset($param['msg']) ? $msg=$param['msg'] : $msg="";
@@ -37,10 +36,6 @@ ob_start();
             <input class="boton" type="submit" value="Descargar factura">
         </form>
 
-=======
-?>
-    <h2>Compra realizada</h2>
->>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
 <?php 
 $contenido = ob_get_clean();
 include 'layouts/ly_login.php'; ?>

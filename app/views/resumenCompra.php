@@ -59,11 +59,7 @@ ob_start();
                     return actions.order.create({
                     purchase_units: [{
                         amount: {
-<<<<<<< HEAD
                             value: carrito.precioTotalDescuento
-=======
-                        value: carrito.precioTotalDescuento // Can reference variables or functions. Example: `value: document.getElementById('...').value`
->>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
                         }
                     }]
                     });
@@ -72,33 +68,20 @@ ob_start();
                 onApprove: function(data, actions) {
                 return actions.order.capture().then(function(orderData) {
                     let transaction = orderData.purchase_units[0].payments.captures[0];
-<<<<<<< HEAD
                     
                     procesarCompra();
                     vaciarCarrito();
                     
-=======
-                    vaciarCarrito();
-                    procesarCompra();
->>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
                     document.querySelector("#botonFinal").click();
                 });
                 },
                 onCancel: function (data) {
-<<<<<<< HEAD
                     document.querySelector("#infoResultadoPaypal").classList.add("error");
                     document.querySelector("#infoResultadoPaypal").textContent="Has cancelado la compra";
                 }
             }).render('#paypal-button-container');
         </script>
         <p id="infoResultadoPaypal"></p>
-=======
-                    // Show a cancel page, or return to cart
-                }
-            }).render('#paypal-button-container');
-        </script>
-        
->>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
         <!-- Una vez que se ha pagado, se envía este formulario para guardar los datos en bbdd -->
         <form style="display:none;" id="formPago" action="index.php?ctl=confirmarCompra" method="post">
             <input id="hiddenResumenCompra" type="hidden" name="compra">

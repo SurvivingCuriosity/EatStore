@@ -41,17 +41,11 @@ class CompraController{
                         require_once 'app/views/resumenCompra.php';
                     }
                 }
-<<<<<<< HEAD
                 self::mandarEmail($datosCompra,$carrito);
 
                 
                 
                 
-=======
-                $param['class']='success';
-                $param['msg']='Su compra ha sido realizada.';
-                require_once 'app/views/successCompra.php';
->>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
             }else{
                 $param['class']='error';
                 $param['msg']='Error al procesar la compra';
@@ -66,7 +60,6 @@ class CompraController{
         }
     }
 
-<<<<<<< HEAD
     public static function mandarEmail($datosCompra,$carrito){
         //Import PHPMailer classes into the global namespace
         //These must be at the top of your script, not inside a function
@@ -117,7 +110,5 @@ class CompraController{
         }
     }
 
-=======
->>>>>>> e57dd3efec2cd048f898da38dea3a5f7041364cc
 
 }
